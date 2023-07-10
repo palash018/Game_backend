@@ -75,7 +75,7 @@ io.on('connection', function(socket){
         console.log(room);
     })
     socket.on("ready",function(ready){
-        
+        try{
         let current_room=Array.from(socket.rooms)[1];
         let arr=mp.get(current_room);
         let not_ready=false
@@ -98,8 +98,13 @@ io.on('connection', function(socket){
             mp.set(current_room,a);
             io.sockets.in(current_room).emit('ready',arr);
         }
+        }
+        catch{
+            console.log("errenous input");
+        }
     })
     socket.on("move",function(move){
+        try {
         let current_room=Array.from(socket.rooms)[1];
         let arr=mp.get(current_room);
         let not_ready=false
@@ -142,6 +147,10 @@ io.on('connection', function(socket){
             mp.set(current_room,a);
             io.sockets.in(current_room).emit('ready',arr);
             }
+        }
+    }
+        catch {
+            console.log("errenous input");
         }
     })
    socket.on("disconnect",function (reason){
